@@ -14,3 +14,6 @@ def currency(value):
         else:
             some_string += cens + ''
     return some_string.strip()
+
+
+

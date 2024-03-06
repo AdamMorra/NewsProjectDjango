@@ -1,0 +1,68 @@
+{% extends 'flatpages/default.html' %}
+
+{% load custom_tags %}
+
+{% block title %}
+News search
+{% endblock title %}
+
+{% block content %}
+<h1>Поиск новостей и статьей</h1>
+<h2> Колличество всех новостей и статьей: {{ search|length }} </h2>
+<hr>
+
+<form>
+    <div class="nativeDatePicker">
+        <label for="bday">Поиск по дате:</label>
+        <input type="date" id="bday" name="bday"/>
+        <span class="validity"></span>
+    </div>
+</form>
+
+{% if search %}
+
+<form action="" method="get">
+    {{ filterset.form.as_p }}
+    <input type="submit" value="Найти"/>
+</form>
+<table>
+    <tr>
+        <td>Название</td>
+        <td>Автор</td>
+        <td>Дата публикации</td>
+    </tr>
+
+    {% for p in search %}
+    <tr>
+        <td>{{ p.title }}</td>
+        <td>{{ p.author }}</td>
+        <td>{{ p.post_time|date:'M d Y' }}</td>
+    </tr>
+    {% endfor %}
+
+</table>
+{% else %}
+<h2>Новостей и статей нет!</h2>
+{% endif %}
+
+
+   {% if page_obj.has_previous %}
+       <a href="?{% url_replace page=1 %}">1</a>
+       {% if page_obj.previous_page_number != 1 %}
+           ...
+           <a href="?{% url_replace page=page_obj.previous_page_number %}">{{ page_obj.previous_page_number }}</a>
+       {% endif %}
+   {% endif %}
+
+   {{ page_obj.number }}
+
+   {% if page_obj.has_next %}
+       <a href="?{% url_replace page=page_obj.next_page_number %}">{{ page_obj.next_page_number }}</a>
+       {% if paginator.num_pages != page_obj.next_page_number %}
+           ...
+           <a href="?{% url_replace page=page_obj.paginator.num_pages %}">{{ page_obj.paginator.num_pages }}</a>
+       {% endif %}
+   {% endif %}
+
+
+{% endblock content %}
