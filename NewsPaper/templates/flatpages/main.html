@@ -5,11 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
     <meta name="description" content=""/>
     <meta name="author" content=""/>
-    <title>
-        {% block title %}
-        {{ flatpage.title }}
-        {% endblock title %}
-    </title>
+    <title> News portal SignUp/SignIn app</title>
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico"/>
     <!-- Core theme CSS (includes Bootstrap)-->
@@ -38,12 +34,23 @@
                     <a class="nav-link" href="{% url 'news_list' %}">News list</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="search/">Search</a>
+                    <a class="nav-link" href="{% url 'post_search' %}">Search</a>
                 </li>
+                {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'news_create' %}">News create</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'articles_create' %}">Article create</a>
+                </li>
+                {% endif %}
             </ul>
         </div>
     </div>
 </nav>
+    <div>
+            <h4><a href="/">News portal SignUp/SignIn app</a></h4>
+    </div>
 <!-- Page content-->
 <div class="container">
     <div class="row">
